@@ -4,7 +4,7 @@ import {CharacterList} from './characters';
 function App() {
   return (
     <div>
-    <h1>Rick and Morty Characters</h1>
+    <h1 style={{ textAlign: 'center' }} >Rick and Morty Characters</h1>
     <CharacterList />
   </div>
       );
