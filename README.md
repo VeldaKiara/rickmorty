@@ -3,9 +3,9 @@
 
 I enjoy fictional books about greek gods, demigods, the oracle, and prophecies. I am a huge fan of Rick Riordan's books. I recently came across Apollo's Trials, based on the greek god Apollo. When I hear any mention of Apollo, my mind goes to the greek god who was the god of practically everything – including but not limited to music, poetry, art, prophecy, truth, archery, plague, healing, sun, and light. 
 
-Apollo client, just like the god Apollo, can do many things. For example, it lets you fetch and manage data from a GraphQl API on your client-side application. It is also simple, flexible, and compatible with any data source.
+[Apollo client](https://www.apolloGraphQL.com/tutorials/), just like the god Apollo, can do many things. For example, it lets you fetch and manage data from a GraphQL API on your client-side application. It is also simple, flexible, and compatible with any data source.
 
-In this article, we will use the Apollo client to fetch data from the Rick and  Morty API, named after the animated TV show with the same name. We will write a GraphQL query to specify the data we need. The data will then be displayed using React. 
+In this article, we will use the [Apollo client](https://www.apolloGraphQL.com/tutorials/) to fetch data from the [Rick and  Morty API](https://rickandmortyapi.com/graphql), named after the animated TV show with the same name. We will write a [GraphQL query](https://www.freecodecamp.org/news/5-ways-to-fetch-data-react-graphql/) to fetch the data we need. The data will then be displayed using React. 
 
 ### Use Case of GraphQL
 
@@ -18,22 +18,22 @@ In this article, we will use the Apollo client to fetch data from the Rick and  
 - GraphQL provides versioning capabilities to allow the evolution of the API schema without breaking existing clients. Versioning is possible since clients specify the exact data they need, making it easy to add new fields and remove depreciated ones without affecting existing clients.
 ### Differences Between GraphQL and REST APIs
 
-- In GraphQL, the client sends a query with the data it needs, and the server responds with that data alone, while in REST APIs, the client sends on a request to an endpoint, and the server responds with all the data/response related to the endpoint.
+- In GraphQL, the client sends a query with the data it needs, and the server responds with that data alone, while in [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), the client sends on a request to an endpoint, and the server responds with all the data/response related to the endpoint.
 
-- REST APIs are resource-based, where the endpoints represent data that can be accessed, created, updated, or deleted. On the other hand, GraphQL is graph-based, where each node represents a relationship between objects.
+- [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), are resource-based, where the endpoints represent data that can be accessed, created, updated, or deleted. On the other hand, GraphQL is graph-based, where each node represents a relationship between objects.
 
-- REST APIs return data in a JSON(JavaScript Object Notation) or XML(Extensible Markup Language) format. At the same time, GraphQL allows the client to specify the data they need and responds with a JSON object matching the query.
+- [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), return data in a JSON(JavaScript Object Notation) or XML(Extensible Markup Language) format. At the same time, GraphQL allows the client to specify the data they need and responds with a JSON object matching the query.
 
-- GraphQL provides versioning to enable the APIs evolution without disrupting the existing clients, while REST APIs are done by creating new endpoints for each version.
+- GraphQL provides versioning to enable the APIs evolution without disrupting the existing clients, while [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), are done by creating new endpoints for each version.
 
-- In some cases, REST APIs can suffer from over-fetching or under-fetching, where the server may send much or little data. GraphQL accounts for this by allowing clients to request the data they need, thus reducing the amount of data transferred over a network.
+- In some cases, [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), can suffer from over-fetching or under-fetching, where the server may send much or little data. GraphQL accounts for this by allowing clients to request the data they need, thus reducing the amount of data transferred over a network.
 
 ### Project Setup
 ### Prerequisites
 
 - Fundamentals on React
 - Know about how APIs work and CSS(Cascading Style Sheets)
-### Installation Dependencies
+### Dependencies Installation 
 
 Create a new React App (rickandmorty)
 ```js
@@ -47,7 +47,7 @@ Install Apollo Client and GraphQL. The code below installs two dependencies:
 1. @apollo/client contains everything you need, like an in-memory cache, local state management, error handling, and a React-based view layer.
 2. GraphQL provides logic for parsing the queries.
 ```js
-npm install @apollo/client graphql
+npm install @apollo/client GraphQL
 ```
 ### Rick & Morty API and Apollo Client Setup 
 Once the project is setup, we need to start using it in our files. `cd` to your `index.js` file then add this code:
@@ -59,7 +59,7 @@ import reportWebVitals from './reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'https://rickandmortyapi.com/graphql',
+  uri: 'https://rickandmortyapi.com/GraphQL',
   cache: new InMemoryCache(),
 });
 
@@ -95,10 +95,10 @@ query Characters{
   }
 `;
 ```
-In the code above, we import `gql` from the `@apollo/client` to define our query. We create and export the variable `GET_CHARACTERS` as a string with capitalized letters. Capitalization is a best practice when defining queries in GraphQl, including wrapping them with a template literal.
+In the code above, we import `gql` from the `@apollo/client` to define our query. We create and export the variable `GET_CHARACTERS` as a string with capitalized letters. Capitalization is a best practice when defining queries in GraphQL, including wrapping them with a template literal.
 
 Objects in Javascript are collections or containers filled with key-value pairs. A key-value pair is referred to as a property.
-The query, in our case, searches for the characters in Rick and Morty. The query returns an object with the resultsproperty, an array of character objects. Each character has properties like name, species, status, type, gender, and image. The other properties, origin and location, are objects with a name property for each character’s origin and location.
+The query, in our case, searches for the characters in Rick and Morty. The query returns an object with the `results` property, an array of character objects. Each character has properties like name, species, status, type, gender, and image- you can choose what you want to fetch 😉-. The other properties, origin and location, are objects with a name property for each character’s origin and location.
 #### Character Function Definition
 
 In the `character.js` file add the following code below the `GET_CHARACTERS` query after modifying it as shown below.
@@ -159,11 +159,11 @@ export function CharacterList() {
   );
 }
 ```
-The `export function CharacterList()` creates a function that is also exported to be used by other parts of the code. The `searchTerm` variable initializes state  to an empty string and create a function `setSearchTerm` to update the value. The `useQuery` hook from `@apollo/client`library fetches data from the API. The query passes the `GET_CHARACTERS ` and a variable for the name `searchTerm` which is a variable to hold the character names being searched. The `handleChange `  sets the searchTerm variable's value to the input field's current value. The `input` field is the search bar where the user will use to search the names of the characters they want to view. The state is handled by `handleChange`.
+The `export function CharacterList()` creates a function that is also exported to be used by other parts of the code. The `searchTerm` variable initializes the search state  to an empty string and creates a function `setSearchTerm` to update the value. The `useQuery` hook from `@apollo/client`library fetches data from the API. The query passes the `GET_CHARACTERS ` and a variable for the name `searchTerm` which is a variable to hold the character names being searched. The `handleChange `  sets the searchTerm variable's value to the input field's current value. The `input` field is the search bar where the user will use to search the names of the characters they want to view. The state is handled by `handleChange`.
 
-We need to account for issues of loading the site and in case of any bugs that may occur. The code with `loading` handles the spinner for the loading part if loading is True. An error message is displayed if the error is not null. Since we are looking for characters when the user searches for a character who is non-existent, we want to present a message and an alternate character they can find more information about; this is where the RandomCharacter comes in. We will define this later on. For now, let us keep it as is.
+We need to account for issues of loading the site and in case of any bugs that may occur. `loading` is dynamically rendered with a spinner  if loading is set to True. An error message is displayed if the error is set to True. Since we are looking for characters when the user searches for a character who is non-existent, we want to present a message and an alternate character they can find more information about; this is where the `RandomCharacter` comes in. We will define this later on. For now, let us keep it as is.
 
-We then map the `data.characters.results` array to each character's card. We also want to change the background of the cards to represent the character the information is for. The `backgroundImage` in the`style` property handles the dynamic change of the images. The rest of the items are displayed as text on the card.
+After fetching the data we map the `data.characters.results` array to each character's card. We also want to change the background of the cards to represent the character the information is for. The `backgroundImage` in the `style` property handles the dynamic change of the images. The rest of the items are displayed as text on the card.
 ### Displaying Data
 Now that we have a function working, we need to view what is being seen on the browser and whether we can make queries and get the data we need. In your `App.js` file, add the following code:
 ```
@@ -203,7 +203,7 @@ query Character($id: ID!){
 `;
 
 export const RandomCharacter = () => {
-    const [randomNumber, setRandomNumber] = useState(Math.floor(Math.random() * 100));
+    const [randomNumber, setRandomNumber] = useState(Math.floor(Math.random() * 200));
     const { loading, error, data } = useQuery(GET_SINGLE_CHARACTER, {variables: {id: randomNumber } });
     
 
@@ -242,7 +242,7 @@ export const RandomCharacter = () => {
 ```
 
 We will replicate the query we created in the `characters.js` file, rename it to `GET_SINGLE_CHARACTER` and instead of looking for names, we will look for IDs. We look for IDs because they are unique, and we want to randomize the characters that will be picked once a user does not get the character they are looking for. 
-`randomNumber` initializes state to the `Math.floor` function which generates a random number between 0 and 99 inclusive, using the `Math.random()` method, multiplying it by 100. The `Math.floor`rounds the result of the expression to the nearest integer. Everytime the `randomNumber` needs to be updated the  `setRandomNumber` function takes a new value as its argument and updates the state.
+`randomNumber` initializes state to the `Math.floor` function which generates a random number between 0 and 199 inclusive, using the `Math.random()` method, multiplying it by 200. The `Math.floor`rounds the result of the expression to the nearest integer. Everytime the `randomNumber` needs to be updated the  `setRandomNumber` function takes a new value as its argument and updates the state.
 
 We have a message to alert the user that the character they are looking for is not found, but they can check out a new character. The loading spinner is also implemented in this component, and the errors are in case of any issues. The images and cards are similar to the `characters.js` format since we want consistency in how everything looks.
 

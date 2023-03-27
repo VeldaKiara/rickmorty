@@ -19,7 +19,7 @@ query Character($id: ID!){
 `;
 
 export const RandomCharacter = () => {
-    const [randomNumber, setRandomNumber] = useState(Math.floor(Math.random() * 100));
+    const [randomNumber, setRandomNumber] = useState(Math.floor(Math.random() * 200));
     const { loading, error, data } = useQuery(GET_SINGLE_CHARACTER, {variables: {id: randomNumber } });
     
 
