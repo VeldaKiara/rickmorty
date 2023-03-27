@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# How to Write a GraphQL Query
+## A beginner’s guide to writing your first GraphQL query
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I enjoy fictional books about greek gods, demigods, the oracle, and prophecies. I am a huge fan of Rick Riordan's books. I recently came across Apollo's Trials, based on the greek god Apollo. When I hear any mention of Apollo, my mind goes to the greek god who was the god of practically everything – including but not limited to music, poetry, art, prophecy, truth, archery, plague, healing, sun, and light. 
 
-## Available Scripts
+Apollo client, just like the god Apollo, can do many things. For example, it lets you fetch and manage data from a GraphQl API on your client-side application. It is also simple, flexible, and compatible with any data source.
 
-In the project directory, you can run:
+In this article, we will use the Apollo client to fetch data from the Rick and  Morty API, named after the animated TV show with the same name. We will write a GraphQL query to specify the data we need. The data will then be displayed using React. 
 
-### `npm start`
+### Use Case of GraphQL
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- GraphQL is used to build applications that require real-time data synchronization, like chat applications. GraphQL allows developers to fetch data that is needed reducing data transfer over the network hence improving application performance.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Microservices handles specific functionality or feature of the application, which poses a challenge to developers to work with multiple APIs individually. GraphQL allows the developers to create a single API that acts as a gateway to numerous microservices. GraphQL improves performance since one query retrieves multiple microservices in a single request. 
 
-### `npm test`
+- GraphQL provides a self-documenting schema, making it easy for developers to understand the data model and relationships between data. It also eases the process of creating, testing, and maintaining API, reducing time and cost.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- GraphQL provides versioning capabilities to allow the evolution of the API schema without breaking existing clients. Versioning is possible since clients specify the exact data they need, making it easy to add new fields and remove depreciated ones without affecting existing clients.
+### Differences Between GraphQL and REST API's
 
-### `npm run build`
+- In GraphQL, the client sends a query with the data it needs, and the server responds with that data alone, while in REST APIs, the client sends on a request to an endpoint, and the server responds with all the data/response related to the endpoint.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- REST APIs are resource-based, where the endpoints represent data that can be accessed, created, updated, or deleted. On the other hand, GraphQL is graph-based, where each node represents a relationship between objects.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- REST APIs return data in a JSON(JavaScript Object Notation) or XML(Extensible Markup Language) format. At the same time, GraphQL allows the client to specify the data they need and responds with a JSON object matching the query.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- GraphQL provides versioning to allow the evolution of the API without disrupting the existing clients, while REST APIs are done by creating new endpoints for each version.
 
-### `npm run eject`
+- In some cases, REST APIs can suffer from over-fetching or under-fetching, where the server may send much or little data. GraphQL accounts for this by allowing clients to request the data they need, thus reducing the amount of data transferred over a network.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Project Setup
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Prerequisistes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Fundamentals on React
+- Have knowledge on how API's work
+- Have prior knowledge on CSS
