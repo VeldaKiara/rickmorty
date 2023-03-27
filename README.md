@@ -11,12 +11,12 @@ In this article, we will use the Apollo client to fetch data from the Rick and  
 
 - GraphQL is used to build applications that require real-time data synchronization, like chat applications. GraphQL allows developers to fetch data that is needed reducing data transfer over the network hence improving application performance.
 
-- Microservices handles specific functionality or feature of the application, which poses a challenge to developers to work with multiple APIs individually. GraphQL allows the developers to create a single API that acts as a gateway to numerous microservices. GraphQL improves performance since one query retrieves multiple microservices in a single request. 
+- Microservices handles specific functionality or feature of the application, which poses a challenge to developers to work with multiple APIs individually. GraphQL allows the developers to create a single API that acts as a gateway to numerous microservices. GraphQL improves performance since one query retrieves various microservices in a single request. 
 
 - GraphQL provides a self-documenting schema, making it easy for developers to understand the data model and relationships between data. It also eases the process of creating, testing, and maintaining API, reducing time and cost.
 
 - GraphQL provides versioning capabilities to allow the evolution of the API schema without breaking existing clients. Versioning is possible since clients specify the exact data they need, making it easy to add new fields and remove depreciated ones without affecting existing clients.
-### Differences Between GraphQL and REST API's
+### Differences Between GraphQL and REST APIs
 
 - In GraphQL, the client sends a query with the data it needs, and the server responds with that data alone, while in REST APIs, the client sends on a request to an endpoint, and the server responds with all the data/response related to the endpoint.
 
@@ -24,15 +24,15 @@ In this article, we will use the Apollo client to fetch data from the Rick and  
 
 - REST APIs return data in a JSON(JavaScript Object Notation) or XML(Extensible Markup Language) format. At the same time, GraphQL allows the client to specify the data they need and responds with a JSON object matching the query.
 
-- GraphQL provides versioning to allow the evolution of the API without disrupting the existing clients, while REST APIs are done by creating new endpoints for each version.
+- GraphQL provides versioning to enable the APIs evolution without disrupting the existing clients, while REST APIs are done by creating new endpoints for each version.
 
 - In some cases, REST APIs can suffer from over-fetching or under-fetching, where the server may send much or little data. GraphQL accounts for this by allowing clients to request the data they need, thus reducing the amount of data transferred over a network.
 
 ### Project Setup
-### Prerequisistes
+### Prerequisites
 
 - Fundamentals on React
-- Have knowledge on how API's work and CSS(Cascading Style Sheets)
+- Know about how APIs work and CSS(Cascading Style Sheets)
 ### Installation Dependencies
 
 Create a new React App (rickandmorty)
@@ -44,14 +44,13 @@ Create a new React App (rickandmorty)
  npx create-react-app rickandmorty 
  ```
 Install Apollo Client and GraphQL. The code below installs two dependencies:
-1.  `@apollo/client` which contains everything you need like in-memory cache, local state management, error handling  and a React based view layer.
-2. `graphql` which provides logic for parsing the queries.
-
+1. @apollo/client contains everything you need, like an in-memory cache, local state management, error handling, and a React-based view layer.
+2. GraphQL provides logic for parsing the queries.
 ```js
 npm install @apollo/client graphql
 ```
 ### Rick & Morty API and Apollo Client Setup 
-Once the project is setup we need to start using it in our files. `cd` to your `index.js` file then add this code:
+Once the project is setup, we need to start using it in our files. `cd` to your `index.js` file then add this code:
 ```js 
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -74,8 +73,8 @@ root.render(
 The code above creates an instance of the Apollo client with the URL(Uniform Resource Locators) of the Rick and Morty API GraphQL endpoint. The App component is wrapped with the Apollo provider component to pass the client to all child components.
 
 ### Query Implementation
-Create a file called `characters.js` inside the `src` folder. The file will contain the query and any other functions that you would like to add.
-Inside the file add the following code:
+Create a file called `characters.js` inside the `src` folder. The file will contain the query and any other functions that you want to add.
+Inside the file, add the following code:
 ```js
 import { gql } from '@apollo/client';
 
@@ -96,12 +95,10 @@ query Characters{
   }
 `;
 ```
-In the code above we start by importing `gql` from the `@apollo/client` so that we can define our query. We create and export the variable `GET_CHARACTERS` as a string with the letters capitlised. This is a best practice when definiing queries in GraphQl including wraping it with a template literal. 
+In the code above, we import `gql` from the `@apollo/client` to define our query. We create and export the variable `GET_CHARACTERS` as a string with capitalized letters. Capitalization is a best practice when defining queries in GraphQl, including wrapping them with a template literal.
 
 Objects in Javascript are collections or containers filled with key-value pairs. A key-value pair is referred to as a property.
-
-The query, in our case searches for the characters in Rick and Morty. The query returns an object with the `results`property which is an array of character objects. Each character has properties like name, species,status,type, gender and an image. The other properties, origin and location are objects with a name property for each character's origin and location.
-
+The query, in our case, searches for the characters in Rick and Morty. The query returns an object with the resultsproperty, an array of character objects. Each character has properties like name, species, status, type, gender, and image. The other properties, origin and location, are objects with a name property for each character’s origin and location.
 #### Character Function Definition
 
 In the `character.js` file add the following code below the `GET_CHARACTERS` query after modifying it as shown below.
@@ -162,14 +159,13 @@ export function CharacterList() {
   );
 }
 ```
-The `export function CharacterList()` creates a function that is also exported to be used in other parts of the code. The `searchTerm` variable initializes state  to an empty string and create a function `setSearchTerm` to update the value. The `useQuery` hook from `@apollo/client`library fetches data from the API. The query passes the `GET_CHARACTERS ` and a variable for the name `searchTerm` which is a variable to hold the character names being searched. The `handleChange ` sets the value of the searchTerm variable to current value of the input field. The `input` field is the search bar where the user will use to search the names of the characters they would like to view, the state is handled by `handleChange`.
+The `export function CharacterList()` creates a function that is also exported to be used by other parts of the code. The `searchTerm` variable initializes state  to an empty string and create a function `setSearchTerm` to update the value. The `useQuery` hook from `@apollo/client`library fetches data from the API. The query passes the `GET_CHARACTERS ` and a variable for the name `searchTerm` which is a variable to hold the character names being searched. The `handleChange `  sets the searchTerm variable's value to the input field's current value. The `input` field is the search bar where the user will use to search the names of the characters they want to view. The state is handled by `handleChange`.
 
-We need to account for issues of loading the site and in case of any bugs that may occur. The code with `loading` handles the spinner for the loading part if loading is True. An error message is displayed if the error is not null. Since we are looking for characters, in the event where the user searches for a character who is non-existent, we want to present a message and an alternate character they can find more information about. This is where the `RandomCharacter` comes in. We will define this later on for now lets keep it as is.
+We need to account for issues of loading the site and in case of any bugs that may occur. The code with `loading` handles the spinner for the loading part if loading is True. An error message is displayed if the error is not null. Since we are looking for characters when the user searches for a character who is non-existent, we want to present a message and an alternate character they can find more information about; this is where the RandomCharacter comes in. We will define this later on. For now, let us keep it as is.
 
-We then map the `data.characters.results` array to each character's card. We also want to change the background of the cards to represent the character the information is for. This is handled by the `backgroundImage` in the `style` property. The rest of items are displayed as text in the card.
-
+We then map the `data.characters.results` array to each character's card. We also want to change the background of the cards to represent the character the information is for. The `backgroundImage` in the`style` property handles the dynamic change of the images. The rest of the items are displayed as text on the card.
 ### Displaying Data
-Now that we have a function working, we need to view what is being seen on the browser, whether we are able to make queries and get the data we need. In your `App.js` file add the following code:
+Now that we have a function working, we need to view what is being seen on the browser and whether we can make queries and get the data we need. In your `App.js` file, add the following code:
 ```
 function App() {
   return (
@@ -183,7 +179,7 @@ function App() {
 `<CharacterList />` component displays the information about the characters we are getting from the API. 
 ### Randomizing The Characters
 
-Remember that we called the `RandomCharacter` component but we had not definded it anyway. Create a file called `randomcharacters.js` in `src` and add the following code:
+Remember that we called the `RandomCharacter`component but had yet to define it. Create a file called `randomcharacters.js` in `src` and add the following code:
 
 ```
 import { useQuery } from "@apollo/client";
@@ -245,15 +241,14 @@ export const RandomCharacter = () => {
 };
 ```
 
-We will replicate the query we created in the `characters.js` file, rename it to `GET_SINGLE_CHARACTER` and instead of looking for names we will look for IDs. We look for IDs because, they are unique and we want to randomize the characters that will be picked once a user does not get the character they are looking for. 
-`randomNumber` initializes state to the `Math.floor` function which generates a random number between 0 and 99 inclusive, using the `Math.random()` method, multiplying it by 100. The `Math.floor`rounds the result of the expression to the nearest integer. Everytime the randomNumber needs to be updated the  setRandomNumber function takes a new value as its argument and updates the state.
+We will replicate the query we created in the `characters.js` file, rename it to `GET_SINGLE_CHARACTER` and instead of looking for names, we will look for IDs. We look for IDs because they are unique, and we want to randomize the characters that will be picked once a user does not get the character they are looking for. 
+`randomNumber` initializes state to the `Math.floor` function which generates a random number between 0 and 99 inclusive, using the `Math.random()` method, multiplying it by 100. The `Math.floor`rounds the result of the expression to the nearest integer. Everytime the `randomNumber` needs to be updated the  `setRandomNumber` function takes a new value as its argument and updates the state.
 
-We have a message to alert the use that the character they are looking for is not found but they can check out a new character. The loading spinner is also implemented in this component as well as the errors incase of any issues. The images and cards are similar to the `characters.js` format since we want to hace consistency of how everything looks.
+We have a message to alert the user that the character they are looking for is not found, but they can check out a new character. The loading spinner is also implemented in this component, and the errors are in case of any issues. The images and cards are similar to the `characters.js` format since we want consistency in how everything looks.
 
 ### Styling the Display
-This is where CSS comes in. We are going to use CSS to style how the cards are  going to look like, the search bar as well as the general page.
-Having defined the functions and components we are going to be adding `className` attributes to what needs to be styled. 
-
+We will use CSS to style how the cards will look, the search bar and the general page.
+Having defined the functions and components we will be adding `className` attributes to what needs to be styled. 
 Add the following code:
 ```js
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
@@ -351,15 +346,15 @@ padding-bottom: 15px;
 
 ```
 Things to note:
--  the class `.card` represents what the card will look like. 
-- the class `.info` is the body text for the characters such as species 
-- the class `.intro` is the text that appears in the event that the character is not found
-- the class `.loader` is the spinner showing before the resluts are shown in the event of a loadtime.
+-  The class `.card` represents what the card will look like. 
+- The class `.info` is the body text for the characters, such as the species
+- The class `.intro` is the text that appears in the event if the character is not found
+- The class `.loader` is the spinner showing before the resluts are shown in the event of a loadtime.
 
-Your website should now look like this:
+Your website should now look like [this](https://github.com/VeldaKiara/rickmorty/blob/main/src/final-images/outlook1.png)
 
-Through this article you were able to implement a GraphQL query use React, manage state and style the different components.
+Check out this video demo of how everything should work [here](https://github.com/VeldaKiara/rickmorty/blob/main/src/final-images/overviewafterstyling.mov)
+
+Through this article, you have learned how to use GraphQL queries with React, manage state using the useState hook, and style the different components of the web application. 
 
 May your keyboard be swift, your bugs be few, and your fun meter be off the charts as you code away!
-
-
