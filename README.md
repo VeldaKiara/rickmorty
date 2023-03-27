@@ -29,9 +29,337 @@ In this article, we will use the Apollo client to fetch data from the Rick and  
 - In some cases, REST APIs can suffer from over-fetching or under-fetching, where the server may send much or little data. GraphQL accounts for this by allowing clients to request the data they need, thus reducing the amount of data transferred over a network.
 
 ### Project Setup
-
-#### Prerequisistes
+### Prerequisistes
 
 - Fundamentals on React
-- Have knowledge on how API's work
-- Have prior knowledge on CSS
+- Have knowledge on how API's work and CSS(Cascading Style Sheets)
+### Installation Dependencies
+
+Create a new React App (rickandmorty)
+```js
+ npm init react-app rickandmorty 
+ ```
+ or
+ ```js
+ npx create-react-app rickandmorty 
+ ```
+Install Apollo Client and GraphQL. The code below installs two dependencies:
+1.  `@apollo/client` which contains everything you need like in-memory cache, local state management, error handling  and a React based view layer.
+2. `graphql` which provides logic for parsing the queries.
+
+```js
+npm install @apollo/client graphql
+```
+### Rick & Morty API and Apollo Client Setup 
+Once the project is setup we need to start using it in our files. `cd` to your `index.js` file then add this code:
+```js 
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'https://rickandmortyapi.com/graphql',
+  cache: new InMemoryCache(),
+});
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <ApolloProvider client={client}>
+  <App />
+</ApolloProvider>,
+);
+```
+The code above creates an instance of the Apollo client with the URL(Uniform Resource Locators) of the Rick and Morty API GraphQL endpoint. The App component is wrapped with the Apollo provider component to pass the client to all child components.
+
+### Query Implementation
+Create a file called `characters.js` inside the `src` folder. The file will contain the query and any other functions that you would like to add.
+Inside the file add the following code:
+```js
+import { gql } from '@apollo/client';
+
+export const GET_CHARACTERS = gql`
+query Characters{
+    characters{
+      results {
+        name
+        species
+        status
+        type
+        gender
+        origin{name}
+        location {name}
+        image
+      },
+    },
+  }
+`;
+```
+In the code above we start by importing `gql` from the `@apollo/client` so that we can define our query. We create and export the variable `GET_CHARACTERS` as a string with the letters capitlised. This is a best practice when definiing queries in GraphQl including wraping it with a template literal. 
+
+Objects in Javascript are collections or containers filled with key-value pairs. A key-value pair is referred to as a property.
+
+The query, in our case searches for the characters in Rick and Morty. The query returns an object with the `results`property which is an array of character objects. Each character has properties like name, species,status,type, gender and an image. The other properties, origin and location are objects with a name property for each character's origin and location.
+
+#### Character Function Definition
+
+In the `character.js` file add the following code below the `GET_CHARACTERS` query after modifying it as shown below.
+
+```js
+import { useQuery, gql } from '@apollo/client';
+import { useState } from "react";
+import  { RandomCharacter } from './randomcharacters';
+import './App.css';
+
+export const GET_CHARACTERS = gql`
+query Characters($name: String){
+    characters ( filter: {name: $name}){
+      results {
+        name
+        species
+        status
+        type
+        gender
+        origin{name}
+        location {name}
+        image
+      },
+    },
+  }
+`;
+
+export function CharacterList() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const {loading, error, data }   = useQuery(GET_CHARACTERS, {variables: {name: searchTerm}});
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  return (
+    <div>
+      <input type="text" name="search" placeholder="search for Rick and Morty characters..." value={searchTerm} onChange={handleChange} className="search-input"  /> 
+      {loading && (
+            <div className="loader-container">
+              <div className="loader"></div>
+            </div>
+       )}
+      {error && <p> error </p> }
+      {data?.characters.results.length === 0 && (<>   <RandomCharacter/> </>)}
+      {data && data.characters.results.map((character) => (
+        <div className="card" key={character.name} style={{ backgroundImage: `url(${character.image})`,backgroundRepeat: 'no-repeat'}}> 
+          <div className="info"> 
+          <h2 className="h3"> {character.name}</h2>
+          <p> Status: {character.status}</p>
+          <p> Species: {character.species} </p>
+          <p> Type: {character.type}</p>
+          <p> Gender: {character.gender}</p>
+          <p> Origin: {character.origin.name}</p>
+          <p> Location: {character.location.name}</p>
+        </div>
+        </div> 
+      ))}
+    </div> 
+  );
+}
+```
+The `export function CharacterList()` creates a function that is also exported to be used in other parts of the code. The `searchTerm` variable initializes state  to an empty string and create a function `setSearchTerm` to update the value. The `useQuery` hook from `@apollo/client`library fetches data from the API. The query passes the `GET_CHARACTERS ` and a variable for the name `searchTerm` which is a variable to hold the character names being searched. The `handleChange ` sets the value of the searchTerm variable to current value of the input field. The `input` field is the search bar where the user will use to search the names of the characters they would like to view, the state is handled by `handleChange`.
+
+We need to account for issues of loading the site and in case of any bugs that may occur. The code with `loading` handles the spinner for the loading part if loading is True. An error message is displayed if the error is not null. Since we are looking for characters, in the event where the user searches for a character who is non-existent, we want to present a message and an alternate character they can find more information about. This is where the `RandomCharacter` comes in. We will define this later on for now lets keep it as is.
+
+We then map the `data.characters.results` array to each character's card. We also want to change the background of the cards to represent the character the information is for. This is handled by the `backgroundImage` in the `style` property. The rest of items are displayed as text in the card.
+
+### Displaying Data
+Now that we have a function working, we need to view what is being seen on the browser, whether we are able to make queries and get the data we need. In your `App.js` file add the following code:
+```
+function App() {
+  return (
+    <div>
+    <h1 style={{ textAlign: 'center' }} >Rick and Morty Characters</h1>
+    <CharacterList />
+  </div>
+      );
+    }
+```
+`<CharacterList />` component displays the information about the characters we are getting from the API. 
+### Randomizing The Characters
+
+Remember that we called the `RandomCharacter` component but we had not definded it anyway. Create a file called `randomcharacters.js` in `src` and add the following code:
+
+```
+import { useQuery } from "@apollo/client";
+import { gql } from '@apollo/client';
+import { useState } from "react";
+import './App.css';
+
+export const GET_SINGLE_CHARACTER = gql`
+query Character($id: ID!){
+    character   (id: $id) {
+        name
+        species
+        status
+        type
+        gender
+        origin{name}
+        location {name}
+        image
+      },
+    },
+`;
+
+export const RandomCharacter = () => {
+    const [randomNumber, setRandomNumber] = useState(Math.floor(Math.random() * 100));
+    const { loading, error, data } = useQuery(GET_SINGLE_CHARACTER, {variables: {id: randomNumber } });
+    
+
+  return (
+    <div>
+       <p className="intro" >
+         Sorry, we couldn't find that character 😞  
+         <br/>
+         <br/>
+         How about this one instead? 😉 </p>
+
+      {/* {loading && <p>loading...</p>} */}
+      {loading && (
+            <div className="loader-container">
+              <div className="loader"></div>
+            </div>
+       )}
+      {error && <p> error </p> }
+      {data && (<> 
+        <div className="card" key={data.character.name} style={{ backgroundImage: `url(${data.character.image})`,backgroundRepeat: 'no-repeat'}}> 
+        <div className="info"> 
+          <h2 className="h3">{data.character.name}</h2>
+          <p>Status: {data.character.status}</p>
+          <p>Species: {data.character.species}</p>
+          <p>Type: {data.character.type}</p>
+          <p>Gender: {data.character.gender}</p>
+          <p>Origin: {data.character.origin.name}</p>
+          <p>Location: {data.character.location.name}</p>
+        </div>
+        </div>
+      </>
+      )}
+    </div>
+  );
+};
+```
+
+We will replicate the query we created in the `characters.js` file, rename it to `GET_SINGLE_CHARACTER` and instead of looking for names we will look for IDs. We look for IDs because, they are unique and we want to randomize the characters that will be picked once a user does not get the character they are looking for. 
+`randomNumber` initializes state to the `Math.floor` function which generates a random number between 0 and 99 inclusive, using the `Math.random()` method, multiplying it by 100. The `Math.floor`rounds the result of the expression to the nearest integer. Everytime the randomNumber needs to be updated the  setRandomNumber function takes a new value as its argument and updates the state.
+
+We have a message to alert the use that the character they are looking for is not found but they can check out a new character. The loading spinner is also implemented in this component as well as the errors incase of any issues. The images and cards are similar to the `characters.js` format since we want to hace consistency of how everything looks.
+
+### Styling the Display
+This is where CSS comes in. We are going to use CSS to style how the cards are  going to look like, the search bar as well as the general page.
+Having defined the functions and components we are going to be adding `className` attributes to what needs to be styled. 
+
+Add the following code:
+```js
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
+body{
+  background: navajowhite;
+  font-family: Roboto, veranda;
+  padding-bottom: 4em;
+}
+.card{
+  position: relative;
+  width: 22em;
+  height: 30em;
+  background-size: 22em 30em;
+  box-shadow: 3px 3px 20px rgba(0,0,0,0.5);
+  margin: auto;
+  overflow: hidden;
+  margin-bottom: 2em;
+}
+.card *{
+  position: relative;
+  z-index: 2;
+}
+.card:hover .info{
+  bottom: -3em;
+  opacity: 1;
+  padding: 2px 1px;
+  background-color: navajowhite;
+}
+.info{
+  font-family: 'Droid Serif', serif;
+  font-size: 1.2em;
+  color: black;
+ 
+  line-height: 1.1em;
+  padding: 0 2em;
+  position: relative;
+  bottom: -4em;
+  opacity: 0;
+  background: transparent;
+  transition: opacity 0.3s, bottom 0.3s;
+  text-align: center;
+}
+/* search  bar*/
+input[type="text"] {
+  border: none;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  padding: 10px;
+  width: 500px;
+  margin: 0 auto;
+  display: block;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  margin-bottom: 2em;
+}
+
+input[type="text"]::placeholder {
+  color: #999;
+  font-style: italic;
+}
+/* no result */
+.intro{
+/* width: 10px; */
+text-align: center;
+margin: 0 auto;
+color:black;
+font-family: 'Droid Serif', serif;
+font-size: 23px;
+font-style: italic;
+line-height: 20px;
+padding-bottom: 15px;
+}
+/* spinner */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.loader {
+  border: 8px solid #f3f3f3; 
+  border-top: 8px solid black;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+```
+Things to note:
+-  the class `.card` represents what the card will look like. 
+- the class `.info` is the body text for the characters such as species 
+- the class `.intro` is the text that appears in the event that the character is not found
+- the class `.loader` is the spinner showing before the resluts are shown in the event of a loadtime.
+
+Your website should now look like this: 
+
+Through this article you were able to implement a GraphQL query use React, manage state and style the different components.
+
+May your keyboard be swift, your bugs be few, and your fun meter be off the charts as you code away!
+
+

@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-// import { GET_CHARACTERS } from "./characters";
 import { gql } from '@apollo/client';
 import { useState } from "react";
 import './App.css';
@@ -49,7 +48,6 @@ export const RandomCharacter = () => {
           <p>Gender: {data.character.gender}</p>
           <p>Origin: {data.character.origin.name}</p>
           <p>Location: {data.character.location.name}</p>
-          {/* <p>Image: {data.character.image}</p> */}
         </div>
         </div>
       </>
