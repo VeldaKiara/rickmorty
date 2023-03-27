@@ -1,76 +1,76 @@
-# How to Write a GraphQL Query
-## A beginner’s guide to writing your first GraphQL query
+# How to Write a [GraphQL](https://graphql.org/) Query
+## A beginner’s guide to writing your first [GraphQL](https://graphql.org/) query
 
 I enjoy fictional books about greek gods, demigods, the oracle, and prophecies. I am a huge fan of Rick Riordan's books. I recently came across Apollo's Trials, based on the greek god Apollo. When I hear any mention of Apollo, my mind goes to the greek god who was the god of practically everything – including but not limited to music, poetry, art, prophecy, truth, archery, plague, healing, sun, and light. 
 
-[Apollo client](https://www.apolloGraphQL.com/tutorials/), just like the god Apollo, can do many things. For example, it lets you fetch and manage data from a GraphQL API on your client-side application. It is also simple, flexible, and compatible with any data source.
+[Apollo client](https://www.apollo[GraphQL](https://graphql.org/).com/tutorials/), just like the god Apollo, can do many things. For example, it lets you fetch and manage data from a [GraphQL](https://graphql.org/) API on your client-side application. It is also simple, flexible, and compatible with any data source.
 
-In this article, we will use the [Apollo client](https://www.apolloGraphQL.com/tutorials/) to fetch data from the [Rick and  Morty API](https://rickandmortyapi.com/graphql), named after the animated TV show with the same name. We will write a [GraphQL query](https://www.freecodecamp.org/news/5-ways-to-fetch-data-react-graphql/) to fetch the data we need. The data will then be displayed using React. 
+In this article, we will use the [Apollo client](https://www.apollo[GraphQL](https://graphql.org/).com/tutorials/) to fetch data from the [Rick and  Morty API](https://rickandmortyapi.com/[GraphQL](https://graphql.org/)), named after the animated TV show with the same name. We will write a [[GraphQL](https://graphql.org/) query](https://www.freecodecamp.org/news/5-ways-to-fetch-data-[React](https://react.dev/)-[GraphQL](https://graphql.org/)/) to fetch the data we need. The data will then be displayed using [React](https://react.dev/). 
 
-### Use Case of GraphQL
+### Use Case of [GraphQL](https://graphql.org/)
 
-- GraphQL is used to build applications that require real-time data synchronization, like chat applications. GraphQL allows developers to fetch data that is needed reducing data transfer over the network hence improving application performance.
+- [GraphQL](https://graphql.org/) is used to build applications that require real-time data synchronization, like chat applications. [GraphQL](https://graphql.org/) allows developers to fetch data that is needed reducing data transfer over the network hence improving application performance.
 
-- Microservices handles specific functionality or feature of the application, which poses a challenge to developers to work with multiple APIs individually. GraphQL allows the developers to create a single API that acts as a gateway to numerous microservices. GraphQL improves performance since one query retrieves various microservices in a single request. 
+- Microservices handles specific functionality or feature of the application, which poses a challenge to developers to work with multiple APIs individually. [GraphQL](https://graphql.org/) allows the developers to create a single API that acts as a gateway to numerous microservices. [GraphQL](https://graphql.org/) improves performance since one query retrieves various microservices in a single request. 
 
-- GraphQL provides a self-documenting schema, making it easy for developers to understand the data model and relationships between data. It also eases the process of creating, testing, and maintaining API, reducing time and cost.
+- [GraphQL](https://graphql.org/) provides a self-documenting schema, making it easy for developers to understand the data model and relationships between data. It also eases the process of creating, testing, and maintaining API, reducing time and cost.
 
-- GraphQL provides versioning capabilities to allow the evolution of the API schema without breaking existing clients. Versioning is possible since clients specify the exact data they need, making it easy to add new fields and remove depreciated ones without affecting existing clients.
-### Differences Between GraphQL and REST APIs
+- [GraphQL](https://graphql.org/) provides versioning capabilities to allow the evolution of the API schema without breaking existing clients. Versioning is possible since clients specify the exact data they need, making it easy to add new fields and remove depreciated ones without affecting existing clients.
+### Differences Between [GraphQL](https://graphql.org/) and REST APIs
 
-- In GraphQL, the client sends a query with the data it needs, and the server responds with that data alone, while in [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), the client sends on a request to an endpoint, and the server responds with all the data/response related to the endpoint.
+- In [GraphQL](https://graphql.org/), the client sends a query with the data it needs, and the server responds with that data alone, while in [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), the client sends on a request to an endpoint, and the server responds with all the data/response related to the endpoint.
 
-- [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), are resource-based, where the endpoints represent data that can be accessed, created, updated, or deleted. On the other hand, GraphQL is graph-based, where each node represents a relationship between objects.
+- [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), are resource-based, where the endpoints represent data that can be accessed, created, updated, or deleted. On the other hand, [GraphQL](https://graphql.org/) is graph-based, where each node represents a relationship between objects.
 
-- [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), return data in a JSON(JavaScript Object Notation) or XML(Extensible Markup Language) format. At the same time, GraphQL allows the client to specify the data they need and responds with a JSON object matching the query.
+- [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), return data in a JSON(JavaScript Object Notation) or XML(Extensible Markup Language) format. At the same time, [GraphQL](https://graphql.org/) allows the client to specify the data they need and responds with a JSON object matching the query.
 
-- GraphQL provides versioning to enable the APIs evolution without disrupting the existing clients, while [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), are done by creating new endpoints for each version.
+- [GraphQL](https://graphql.org/) provides versioning to enable the APIs evolution without disrupting the existing clients, while [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), are done by creating new endpoints for each version.
 
-- In some cases, [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), can suffer from over-fetching or under-fetching, where the server may send much or little data. GraphQL accounts for this by allowing clients to request the data they need, thus reducing the amount of data transferred over a network.
+- In some cases, [REST APIs](https://www.ibm.com/topics/rest-apis#:~:text=the%20next%20step-,What%20is%20a%20REST%20API%3F,representational%20state%20transfer%20architectural%20style.s), can suffer from over-fetching or under-fetching, where the server may send much or little data. [GraphQL](https://graphql.org/) accounts for this by allowing clients to request the data they need, thus reducing the amount of data transferred over a network.
 
 ### Project Setup
 ### Prerequisites
 
-- Fundamentals on React
+- Fundamentals on [React](https://react.dev/)
 - Know about how APIs work and CSS(Cascading Style Sheets)
 ### Dependencies Installation 
 
-Create a new React App (rickandmorty)
+Create a new [React](https://react.dev/) App (rickandmorty)
 ```js
- npm init react-app rickandmorty 
+ npm init [React](https://react.dev/)-app rickandmorty 
  ```
  or
  ```js
- npx create-react-app rickandmorty 
+ npx create-[React](https://react.dev/)-app rickandmorty 
  ```
-Install Apollo Client and GraphQL. The code below installs two dependencies:
-1. @apollo/client contains everything you need, like an in-memory cache, local state management, error handling, and a React-based view layer.
-2. GraphQL provides logic for parsing the queries.
+Install Apollo Client and [GraphQL](https://graphql.org/). The code below installs two dependencies:
+1. @apollo/client contains everything you need, like an in-memory cache, local state management, error handling, and a [React](https://react.dev/)-based view layer.
+2. [GraphQL](https://graphql.org/) provides logic for parsing the queries.
 ```js
-npm install @apollo/client GraphQL
+npm install @apollo/client [GraphQL](https://graphql.org/)
 ```
 ### Rick & Morty API and Apollo Client Setup 
 Once the project is setup, we need to start using it in our files. `cd` to your `index.js` file then add this code:
 ```js 
-import ReactDOM from 'react-dom/client';
+import [React](https://react.dev/)DOM from '[React](https://react.dev/)-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'https://rickandmortyapi.com/GraphQL',
+  uri: 'https://rickandmortyapi.com/[GraphQL](https://graphql.org/)',
   cache: new InMemoryCache(),
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = [React](https://react.dev/)DOM.createRoot(document.getElementById('root'));
 root.render(
   <ApolloProvider client={client}>
   <App />
 </ApolloProvider>,
 );
 ```
-The code above creates an instance of the Apollo client with the URL(Uniform Resource Locators) of the Rick and Morty API GraphQL endpoint. The App component is wrapped with the Apollo provider component to pass the client to all child components.
+The code above creates an instance of the Apollo client with the URL(Uniform Resource Locators) of the Rick and Morty API [GraphQL](https://graphql.org/) endpoint. The App component is wrapped with the Apollo provider component to pass the client to all child components.
 
 ### Query Implementation
 Create a file called `characters.js` inside the `src` folder. The file will contain the query and any other functions that you want to add.
@@ -95,7 +95,7 @@ query Characters{
   }
 `;
 ```
-In the code above, we import `gql` from the `@apollo/client` to define our query. We create and export the variable `GET_CHARACTERS` as a string with capitalized letters. Capitalization is a best practice when defining queries in GraphQL, including wrapping them with a template literal.
+In the code above, we import `gql` from the `@apollo/client` to define our query. We create and export the variable `GET_CHARACTERS` as a string with capitalized letters. Capitalization is a best practice when defining queries in [GraphQL](https://graphql.org/), including wrapping them with a template literal.
 
 Objects in Javascript are collections or containers filled with key-value pairs. A key-value pair is referred to as a property.
 The query, in our case, searches for the characters in Rick and Morty. The query returns an object with the `results` property, an array of character objects. Each character has properties like name, species, status, type, gender, and image- you can choose what you want to fetch 😉-. The other properties, origin and location, are objects with a name property for each character’s origin and location.
@@ -105,7 +105,7 @@ In the `character.js` file add the following code below the `GET_CHARACTERS` que
 
 ```js
 import { useQuery, gql } from '@apollo/client';
-import { useState } from "react";
+import { useState } from "[React](https://react.dev/)";
 import  { RandomCharacter } from './randomcharacters';
 import './App.css';
 
@@ -184,7 +184,7 @@ Remember that we called the `RandomCharacter`component but had yet to define it.
 ```
 import { useQuery } from "@apollo/client";
 import { gql } from '@apollo/client';
-import { useState } from "react";
+import { useState } from "[React](https://react.dev/)";
 import './App.css';
 
 export const GET_SINGLE_CHARACTER = gql`
@@ -355,6 +355,6 @@ Your website should now look like [this](https://github.com/VeldaKiara/rickmorty
 
 Check out this video demo of how everything should work [here](https://github.com/VeldaKiara/rickmorty/blob/main/src/final-images/overviewafterstyling.mov)
 
-Through this article, you have learned how to use GraphQL queries with React, manage state using the useState hook, and style the different components of the web application. 
+Through this article, you have learned how to use [GraphQL](https://graphql.org/) queries with [React](https://react.dev/), manage state using the useState hook, and style the different components of the web application. 
 
 May your keyboard be swift, your bugs be few, and your fun meter be off the charts as you code away!
