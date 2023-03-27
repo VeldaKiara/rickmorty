@@ -356,7 +356,7 @@ Things to note:
 - the class `.intro` is the text that appears in the event that the character is not found
 - the class `.loader` is the spinner showing before the resluts are shown in the event of a loadtime.
 
-Your website should now look like this: 
+Your website should now look like this:
 
 Through this article you were able to implement a GraphQL query use React, manage state and style the different components.
 
